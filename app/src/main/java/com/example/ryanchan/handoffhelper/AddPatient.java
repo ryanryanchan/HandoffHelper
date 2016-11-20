@@ -8,19 +8,84 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import static android.R.attr.duration;
 
 public class AddPatient extends AppCompatActivity {
 
+    private RadioGroup radioGroup;
+    private RadioGroup genderGroup;
+    private int severity;
+    private String gender = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_patient);
 
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        severity = addListenerOnButton();
+
+        gender = GenderButton();
+
+    }
+
+    public String GenderButton(){
+        genderGroup = (RadioGroup) findViewById(R.id.gender);
+        genderGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch(i){
+                    case R.id.male:
+                        gender = "Male";
+                        break;
+                    case R.id.female:
+                        gender = "Female";
+                        break;
+                }
+            }
+        });
+        return gender;
+    }
+
+    public int addListenerOnButton(){
+
+        radioGroup = (RadioGroup) findViewById(R.id.radio_group);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch(i){
+                    case R.id.radio1:
+                        severity = 1;
+                        break;
+
+                    case R.id.radio2:
+                        severity = 2;
+
+                        break;
+                    case R.id.radio3:
+                        severity = 3;
+
+                        break;
+                    case R.id.radio4:
+                        severity = 4;
+
+                        break;
+                    case R.id.radio5:
+                        severity = 5;
+
+                        break;
+                }
+            }
+        });
+        return severity;
     }
 
     public void savePatient(View view) {
@@ -37,8 +102,7 @@ public class AddPatient extends AppCompatActivity {
             age = Integer.parseInt(years.getText().toString());
         }
 
-        EditText sex = (EditText) findViewById(R.id.EditGender);
-        String gender = sex.getText().toString();
+
 
 
         if (bedNo.equals("") || gender.equals("") || age < 0) {
