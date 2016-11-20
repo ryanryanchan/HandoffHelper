@@ -15,7 +15,7 @@ public class Patient {
     private String planOfCare;
     private String contingency;
 
-    Patient( String bed, String sex, int age,){
+    Patient( String bed, String sex, int age){
         this.bed = bed;
         this.sex = sex;
         this.age = age;
