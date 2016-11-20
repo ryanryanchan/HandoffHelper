@@ -1,4 +1,4 @@
-package kody.handoffhelper;
+package com.example.ryanchan.handoffhelper;
 
 import android.content.Context;
 import android.content.Intent;
