@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Handoff Helper</string>
+    <string name="app_name">Add Patient</string>
+
+    <string name="condition">Condition:</string>
+    <string name="diagnosis">Diagnosis:</string>
+    <string name="tests">Tests Ordered:</string>
+    <string name="plan">Plan of Care:</string>
+    <string name="contingency">Contingency</string>
+
+
+    <string name="severity">Severity</string>
+    <string name="critical">Critical</string>
+    <string name="stable">Stable</string>
 </resources>

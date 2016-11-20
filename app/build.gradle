@@ -31,10 +31,15 @@ dependencies {
      //   exclude group: 'com.android.support', module: 'support-annotations'
     //})
     compile 'com.android.support:appcompat-v7:25.0.1'
+<<<<<<< HEAD
+    testCompile 'junit:junit:4.12'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
+=======
     compile 'com.firebase:firebase-client-android:2.5.0'
     //compile 'com.android.support:appcompat-v7:25.1.1'
     compile 'com.google.firebase:firebase-core:9.8.0'
 
     //testCompile 'junit:junit:4.12'
+>>>>>>> origin/master
 }
 apply plugin: 'com.google.gms.google-services'
