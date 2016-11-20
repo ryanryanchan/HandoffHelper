@@ -3,36 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/patientBed"
-        android:text="TextView"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:textStyle="bold"
-        />
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:id="@+id/patientBed"
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:id="@+id/patientAgeSex"
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"/>
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/patientSex"
+        android:id="@+id/patientCC"
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
-        android:layout_alignBaseline="@+id/patientBed"
-        android:layout_alignBottom="@+id/patientBed"
-        android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:id="@+id/patientAge"
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_alignBaseline="@+id/patientSex"
-        android:layout_alignBottom="@+id/patientSex"
-        android:layout_toStartOf="@+id/patientSex" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:maxWidth="250sp"
+        android:maxLines="2"/>
 
 
 </RelativeLayout>

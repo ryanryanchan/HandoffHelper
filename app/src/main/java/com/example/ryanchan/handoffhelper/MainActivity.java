@@ -89,11 +89,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void populatePatientList(){
-        myPatients.add(new Patient("1","M",69));
-        myPatients.add(new Patient("2","M",69));
-        myPatients.add(new Patient("3","M",69));
-        myPatients.add(new Patient("4","M",69));
-        myPatients.add(new Patient("CD","M",69));
+        for (int i = 0; i < 20; i++){
+            Patient temp = new Patient(i+"","M",69);
+            temp.setChiefComplaint("HELP ME PLEASE I'M DYING BRO HELP ME PLEASE I'M DYING BRO HELP ME PLEASE I'M DYING BRO");
+            myPatients.add(temp);
+        }
     }
 
     private void populateListView() {
@@ -133,11 +133,11 @@ public class MainActivity extends AppCompatActivity {
             TextView bedText = (TextView) itemView.findViewById(R.id.patientBed);
             bedText.setText("BED " + currentPatient.getBed());
 
-            TextView ageText = (TextView) itemView.findViewById(R.id.patientAge);
-            ageText.setText(""+currentPatient.getAge());
+            TextView ageText = (TextView) itemView.findViewById(R.id.patientAgeSex);
+            ageText.setText(""+currentPatient.getAge() +"yo " + currentPatient.getSex());
 
-            TextView sexText = (TextView) itemView.findViewById(R.id.patientSex);
-            sexText.setText(currentPatient.getSex());
+            TextView sexText = (TextView) itemView.findViewById(R.id.patientCC);
+            sexText.setText(currentPatient.getChiefComplaint());
 
             return itemView;
         }
