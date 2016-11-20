@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Handoff Helper</string>
-    <string name="app_name">Add Patient</string>
+    <string name="add_patient">Add Patient</string>
 
     <string name="condition">Condition:</string>
     <string name="diagnosis">Diagnosis:</string>

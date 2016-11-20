@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -31,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+    Firebase FB = new Firebase("https://handoffhelper-657e2.firebaseio.com/");
+    private PatientListAdapter PLA;
+    private ValueEventListener mConnectedListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(myToolbar);
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
+
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
@@ -69,10 +73,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-<<<<<<< HEAD
     public boolean onCreateOptionsMenu(Menu menu){
         return true;
-=======
+    }
     public void onStart() {
         super.onStart();
 
@@ -147,6 +150,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
->>>>>>> 769191251ac8aa0d5682efb99549e0c1ffc8c9a1
     }
 }
