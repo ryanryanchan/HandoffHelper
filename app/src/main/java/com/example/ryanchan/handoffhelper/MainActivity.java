@@ -3,20 +3,35 @@ package com.example.ryanchan.handoffhelper;
 import android.content.res.Configuration;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
+
+
+    //menu stuff
     private DrawerLayout mDrawerLayout;
     private LinearLayout mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
+
+    //mainscreen stuff
+    private List<Patient> myPatients = new ArrayList<Patient>();
 
 
     @Override
@@ -24,7 +39,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        //patients in listview
+        populatePatientList();
+        populateListView();
+        registerClickCallback();
 
         //setup navigation drawer layout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -74,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_add:
                 //go to new patient page
+
                 return true;
 
             default:
@@ -114,6 +133,70 @@ public class MainActivity extends AppCompatActivity {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
+
+    //populates list of test patients
+    private void populatePatientList() {
+        for (int i = 0; i < 20; i++) {
+            Patient temp = new Patient(i + "", "M", 69);
+            temp.setChiefComplaint("HELP ME PLEASE I'M DYING BRO HELP ME PLEASE I'M DYING BRO HELP ME PLEASE I'M DYING BRO");
+            myPatients.add(temp);
+        }
+    }
+    //puts them in the screen
+    private void populateListView() {
+        ArrayAdapter<Patient> adapter = new PatientListAdapter();
+        ListView list = (ListView) findViewById(R.id.patientListView);
+        list.setAdapter(adapter);
+    }
+
+    //makes list clickable
+    private void registerClickCallback(){
+        ListView list = (ListView)findViewById(R.id.patientListView);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id){
+                Patient clickedPatient = myPatients.get(position);
+                String message = "DAMN SON this will take us to patient page someday.\n" +
+                        "You clicked the patient in bed " + clickedPatient.getBed() +
+                        " who is a " + clickedPatient.getAge() + " year old " + clickedPatient.getSex() +
+                        ".";
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+
+
+    private class PatientListAdapter extends ArrayAdapter<Patient> {
+        public PatientListAdapter() {
+            super(MainActivity.this, R.layout.listview_patient, myPatients);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View itemView = convertView;
+            if (itemView == null)
+                itemView = getLayoutInflater().inflate(R.layout.listview_patient, parent, false);
+
+            Patient currentPatient = myPatients.get(position);
+
+            TextView bedText = (TextView) itemView.findViewById(R.id.patientBed);
+            bedText.setText("BED " + currentPatient.getBed());
+
+            TextView ageText = (TextView) itemView.findViewById(R.id.patientAgeSex);
+            ageText.setText(""+currentPatient.getAge() +"yo " + currentPatient.getSex());
+
+            TextView sexText = (TextView) itemView.findViewById(R.id.patientCC);
+            sexText.setText(currentPatient.getChiefComplaint());
+
+            return itemView;
+        }
+
+
+    }
+
+
+
 
 }
 
