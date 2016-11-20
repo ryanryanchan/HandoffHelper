@@ -6,8 +6,17 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+<<<<<<< HEAD
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+=======
+        <item name="drawerArrowStyle">@style/BarStyle</item>
+    </style>
+
+
+    <style name="BarStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@android:color/white</item>
+>>>>>>> 068483b2cb832b172ffd232c521a5de6cca7f582
     </style>
 
 </resources>
