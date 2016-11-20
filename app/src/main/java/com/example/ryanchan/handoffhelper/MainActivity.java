@@ -1,5 +1,6 @@
 package com.example.ryanchan.handoffhelper;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -92,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_add:
                 //go to new patient page
+                Intent intent = new Intent(MainActivity.this, AddPatient.class);
+                startActivity(intent);
 
                 return true;
 
