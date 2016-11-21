@@ -153,6 +153,8 @@ public class ChrisAdapter extends RecyclerView.Adapter<PatientHolder> {
             temp.setChiefComplaint("HELP ME PLEASE I'M DYING BRO HELP ME PLEASE I'M DYING BRO HELP ME PLEASE I'M DYING BRO");
             if (i%6 != 0)
                 temp.setSeverity(i%6);
+            temp.setDiagnosis("THIS NIGGA BE TRIPPIN");
+            temp.setTestsOrdered("CT Scan (Negative)\nUA (Positive)");
             this.patients.add(temp);
         }
     }

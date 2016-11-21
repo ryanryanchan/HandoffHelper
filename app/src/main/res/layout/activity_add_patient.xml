@@ -36,7 +36,7 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:hint="Bed No:"
-            android:inputType = "textPersonName"/>
+            android:inputType = "number"/>
 
         <EditText
             android:id="@+id/EditAge"

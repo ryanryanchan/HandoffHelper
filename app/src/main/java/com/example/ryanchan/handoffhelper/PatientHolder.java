@@ -1,6 +1,7 @@
 package com.example.ryanchan.handoffhelper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -55,11 +56,26 @@ public class PatientHolder extends RecyclerView.ViewHolder implements View.OnCli
     @Override
     public void onClick(View v) {
         if (this.patient != null) {
-            String message = "DAMN SON this will take us to patient page someday.\n" +
-                    "You clicked the patient in bed " + patient.getBed() +
-                    " who is a " + patient.getAge() + " year old " + patient.getSex() +
-                    ".";
-            Toast.makeText(this.context, message, Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(this.context, PatientProfile.class);
+            String age = Integer.toString(patient.getAge());
+            String severity = Integer.toString(patient.getSeverity());
+            intent.putExtra("PATIENT_BED",patient.getBed());
+            intent.putExtra("PATIENT_SEX",patient.getSex());
+            intent.putExtra("PATIENT_AGE",age);
+            intent.putExtra("PATIENT_COMPLAINT",patient.getChiefComplaint());
+            intent.putExtra("PATIENT_DIAGNOSIS",patient.getDiagnosis());
+            intent.putExtra("PATIENT_TESTS",patient.getTestsOrdered());
+            intent.putExtra("PATIENT_SEVERITY",severity);
+            intent.putExtra("PATIENT_PLAN",patient.getPlanOfCare());
+            intent.putExtra("PATIENT_CONTINGENCY",patient.getContingency());
+
+            context.startActivity(intent);
+//            String message = "DAMN SON this will take us to patient page someday.\n" +
+//                    "You clicked the patient in bed " + patient.getBed() +
+//                    " who is a " + patient.getAge() + " year old " + patient.getSex() +
+//                    ".";
+//            Toast.makeText(this.context, message, Toast.LENGTH_LONG).show();
         }
     }
 
