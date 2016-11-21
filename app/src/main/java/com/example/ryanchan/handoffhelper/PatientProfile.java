@@ -56,9 +56,9 @@ public class PatientProfile extends AppCompatActivity {
         StringBuilder message = new StringBuilder();
 
         if (sex.equals("M")) {
-            message.append(age + " year old male");
+            message.append("Bed number: " + bed + "\n" + age + " year old male");
         } else {
-            message.append(age + " year old female");
+            message.append("Bed number: " + bed + "\n" + age + " year old female");
         }
 
         TextView descriptionView = (TextView) findViewById(R.id.PatientDescription);
