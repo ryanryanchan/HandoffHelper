@@ -158,7 +158,6 @@ public class PatientProfile extends AppCompatActivity {
         if (planOfCare.equals("")) {
             message.append("   -----------");
         } else {
-            message.append("HEREHAR\n");
             message.append(planOfCare);
             message.append("\n");
         }
