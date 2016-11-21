@@ -8,6 +8,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,11 +33,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+import static android.R.attr.type;
 
 
 public class MainActivity extends AppCompatActivity  {
 
+    private  static ChrisAdapter mainAdapter;
 
     //menu stuff
     private DrawerLayout mDrawerLayout;
@@ -42,7 +46,7 @@ public class MainActivity extends AppCompatActivity  {
     private ActionBarDrawerToggle mDrawerToggle;
 
     //mainscreen stuff
-    private List<Patient> myPatients = new ArrayList<Patient>();
+   // private List<Patient> myPatients = new ArrayList<Patient>();
 
 
     private GoogleApiClient client;
@@ -57,12 +61,21 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // creates the adapter for home screen
+        mainAdapter = new ChrisAdapter(this, R.layout.listview_patient);
+        //mainAdapter.populatePatientList();
 
+        //attatching the adapter to the recyclerview
+        RecyclerView listingsView = (RecyclerView)findViewById(R.id.patientListView);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        int verticalSpacing = 50;
+        VerticalSpaceItemDecorator itemDecorator =
+                new VerticalSpaceItemDecorator(verticalSpacing);
 
-
-
-  //      populateListView();
-        registerClickCallback();
+        listingsView.setLayoutManager(layoutManager);
+        listingsView.addItemDecoration(itemDecorator);
+        listingsView.setHasFixedSize(true);
+        listingsView.setAdapter(mainAdapter);
 
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -126,6 +139,11 @@ public class MainActivity extends AppCompatActivity  {
 
                 return true;
 
+            case R.id.action_sort:
+                //sorts
+                mainAdapter.sortPatients();
+                return true;
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -166,39 +184,44 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
-    //makes list clickable
-    private void registerClickCallback(){
-        ListView list = (ListView)findViewById(R.id.patientListView);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id){
-                Patient clickedPatient = myPatients.get(position);
-                String message = "DAMN SON this will take us to patient page someday.\n" +
-                        "You clicked the patient in bed " + clickedPatient.getBed() +
-                        " who is a " + clickedPatient.getAge() + " year old " + clickedPatient.getSex() +
-                        ".";
-                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+//    //makes list clickable
+//    private void registerClickCallback(){
+//        final ListView list = (ListView)findViewById(R.id.patientListView);
+//        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id){
+//
+//                Log.d("TESTING", "onclick" );
+//
+//                Patient clickedPatient = list[id];
+//
+//                String message = "DAMN SON this will take us to patient page someday.\n" +
+//                        "You clicked the patient in bed " + clickedPatient.getBed() +
+//                        " who is a " + clickedPatient.getAge() + " year old " + clickedPatient.getSex() +
+//                        ".";
+//                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     
     @Override
     public void onStart() {
         super.onStart();
 
-        final ListView listView = (ListView) findViewById(R.id.patientListView);
-        PLA = new PatientListAdapter(FB, this, R.layout.listview_patient);
-
-        listView.setAdapter(PLA);
-
-        PLA.registerDataSetObserver(new DataSetObserver() {
-            @Override
-            public void onChanged() {
-                super.onChanged();
-                listView.setSelection(PLA.getCount() - 1);
-            }
-        });
+//        //final ListView listView = (ListView) findViewById(R.id.patientListView);
+//        PLA = new PatientListAdapter(FB, this, R.layout.listview_patient);
+//
+//      //  listView.setAdapter(PLA);
+//
+//        PLA.registerDataSetObserver(new DataSetObserver() {
+//            @Override
+//            public void onChanged() {
+//                super.onChanged();
+//                listView.setSelection(PLA.getCount() - 1);
+//            }
+//        });
 
         mConnectedListener = FB.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
             @Override
@@ -222,9 +245,12 @@ public class MainActivity extends AppCompatActivity  {
     public void onStop() {
         super.onStop();
         FB.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
-        PLA.cleanup();
+//        PLA.cleanup();
     }
 
+    public static ChrisAdapter getViewAdapter() {
+        return mainAdapter;
+    }
 
 
 

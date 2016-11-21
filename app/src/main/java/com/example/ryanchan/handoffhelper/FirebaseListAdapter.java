@@ -28,6 +28,9 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
     private List<T> models;      //list of "models", in this case Chats
     private List<String> keys;   //list of keys, in this case...
     private ChildEventListener mlistener; //the thing that checks for changes
+    private ChrisAdapter viewAdapter;
+    private List<Patient> pList;
+
 
     public FirebaseListAdapter(Query FBRef, Class<T> modelClass, int layout, Activity activity) {
         this.FBRef = FBRef;
@@ -36,6 +39,7 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
         minflater = activity.getLayoutInflater(); //instantiates a layout XML file apparently
         models = new ArrayList<T>();
         keys = new ArrayList<String>();
+
 
         mlistener = this.FBRef.addChildEventListener(new ChildEventListener() {
             @Override
@@ -146,6 +150,7 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
             return i;
         }
 
+        public ChildEventListener getMlistener() {return mlistener;}
         @Override
         public View getView(int i, View view, ViewGroup viewGroup){
             if(view == null){
@@ -157,6 +162,12 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
             populateView(view, model);
             return view;
         }
-
+        public Query getFBRef() {
+          return FBRef;
+        }
+        public List<String> getKeys(){
+            return keys;
+        }
         protected abstract void populateView(View v, T model);
 }
+

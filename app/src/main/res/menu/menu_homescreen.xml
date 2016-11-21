@@ -8,6 +8,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <item android:id="@+id/action_sort"
+        android:title="add"
+        android:icon="@drawable/ic_action_sort"
+        app:showAsAction="always"/>
+
     <item android:id="@+id/action_add"
         android:title="add"
         android:icon="@drawable/ic_action_add"

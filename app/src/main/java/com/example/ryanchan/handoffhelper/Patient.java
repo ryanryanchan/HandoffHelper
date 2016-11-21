@@ -1,6 +1,8 @@
 package com.example.ryanchan.handoffhelper;
 import org.json.*;
 
+import java.util.Comparator;
+
 /**
  * Created by ryanchan on 11/15/16.
  */
@@ -28,7 +30,7 @@ public class Patient {
         this.chiefComplaint = "";
         this.diagnosis = "";
         this.testsOrdered = "";
-        this.severity = 0;
+        this.severity = 6;
         this.planOfCare = "";
         this.contingency = "";
 
@@ -96,5 +98,23 @@ public class Patient {
     public void setTestsOrdered(String testsOrdered) {
         this.testsOrdered = testsOrdered;
     }
+
+
+    public static Comparator<Patient> PatientBedComparator = new Comparator<Patient>(){
+        public int compare(Patient p1, Patient p2){
+            String p1bed = p1.getBed();
+            String p2bed = p2.getBed();
+            return Integer.valueOf(p1bed)- Integer.valueOf(p2bed);
+        }
+    };
+
+    public static Comparator<Patient> PatientSeverityComparator = new Comparator<Patient>() {
+        public int compare(Patient p1, Patient p2){
+            int p1severity = p1.getSeverity();
+            int p2severity = p2.getSeverity();
+            return p1severity-p2severity;
+        }
+    };
+
 }
 

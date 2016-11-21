@@ -125,6 +125,8 @@ public class AddPatient extends AppCompatActivity {
 
             Patient patient = new Patient(bedNo, gender, age);
 
+            patient.setSeverity(severity);
+
             EditText complaint = (EditText) findViewById(R.id.EditCondition);
             String condition = complaint.getText().toString();
             patient.setChiefComplaint(condition);
