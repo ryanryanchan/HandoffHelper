@@ -87,14 +87,14 @@ public class PatientProfile extends AppCompatActivity {
         StringBuilder message = new StringBuilder();
 
         if (sex.equals("M")) {
-            message.append("Bed: " + bed + "  " + age + "yo M");
+            message.append("Bed: " + bed + "  " + age + "y/o M");
         } else {
-            message.append("Bed: " + bed + "  " + age + "yo F");
+            message.append("Bed: " + bed + "  " + age + "y/o F");
         }
 
         RelativeLayout descriptionView = (RelativeLayout) findViewById(R.id.PatientDescription);
         TextView profileAge = (TextView) findViewById(R.id.PatientProfileAge);
-        profileAge.setText(age+"yo "+sex);
+        profileAge.setText(age+"y/o "+sex);
 
         TextView profileBed = (TextView) findViewById(R.id.PatientProfileBed);
         profileBed.setText("Bed: "+bed);
