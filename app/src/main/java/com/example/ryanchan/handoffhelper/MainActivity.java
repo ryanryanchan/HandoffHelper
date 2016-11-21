@@ -1,10 +1,12 @@
 package com.example.ryanchan.handoffhelper;
 
 import android.content.res.Configuration;
+import android.database.DataSetObserver;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,21 +19,25 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 
+public class MainActivity extends AppCompatActivity  {
 
-
-public class MainActivity extends AppCompatActivity {
-
+    //patientlistadapter
+    private PatientListAdapter mPatientlistadapter;
 
 
     //menu stuff
@@ -48,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private PatientListAdapter PLA;
     private ValueEventListener mConnectedListener;
 
-
-
+    private Map<String, Patient> patients = new HashMap<String, Patient>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +62,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //patients in listview
-        populatePatientList();
-        populateListView();
+//        populatePatientList();
+  //      populateListView();
         registerClickCallback();
 
-
-        //Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(myToolbar);
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
@@ -74,8 +76,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         //setup actionbar toolbar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
 
 
         mDrawerToggle = new ActionBarDrawerToggle(
@@ -102,6 +106,8 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerToggle.syncState();
             }
         });
+
+
 
     }
 
@@ -166,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
     }
     //puts them in the screen
     private void populateListView() {
-        ArrayAdapter<Patient> adapter = new PatientListAdapter();
+        ArrayAdapter<Patient> adapter = new PPatientListAdapter();
         ListView list = (ListView) findViewById(R.id.patientListView);
         list.setAdapter(adapter);
     }
@@ -189,8 +195,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private class PatientListAdapter extends ArrayAdapter<Patient> {
-        public PatientListAdapter() {
+    private class PPatientListAdapter extends ArrayAdapter<Patient> {
+        public PPatientListAdapter() {
             super(MainActivity.this, R.layout.listview_patient, myPatients);
         }
 
@@ -217,8 +223,46 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
+        final ListView listView = (ListView) findViewById(R.id.patientListView);
+        PLA = new PatientListAdapter(FB, this, R.layout.listview_patient);//, "A", "Male", 20);
 
+        listView.setAdapter(PLA);
+
+        PLA.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                listView.setSelection(PLA.getCount() - 1);
+            }
+        });
+
+        mConnectedListener = FB.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean connected = (Boolean) dataSnapshot.getValue();
+                if(connected) {
+                    Toast.makeText(MainActivity.this, "CONNECTED TO THIS", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                //ok
+            }
+        });
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        FB.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
+        PLA.cleanup();
+    }
 
 }
 

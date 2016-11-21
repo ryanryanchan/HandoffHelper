@@ -11,6 +11,7 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
             @Override
             public void onChildAdded(DataSnapshot data, String previousChildName) {
 
-                T model = data.getValue(FirebaseListAdapter.this.modelClass); //getting the Chat data from the data added
+                T model = data.getValue(FirebaseListAdapter.this.modelClass); //getting the Patient data from the data added
                 String key = data.getKey();
 
                 //putting the data into the right location based on previousChildName
@@ -64,7 +65,7 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
 
             @Override
             public void onChildChanged(DataSnapshot data, String s) {
-                //one of the models aka Chats have changed; replace it in the list and name mapping
+                //one of the models aka Patient have changed; replace it in the list and name mapping
 
                 String key = data.getKey();
                 T newModel = data.getValue(FirebaseListAdapter.this.modelClass);
@@ -80,7 +81,7 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
             @Override
             public void onChildRemoved(DataSnapshot data) {
 
-                //remove a model/Chat from the list and name mapping
+                //remove a model/Patient from the list and name mapping
                 String key = data.getKey();
                 int index = keys.indexOf(key);
 
@@ -101,8 +102,7 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
                 models.remove(index);
                 keys.remove(index);
 
-                //we basically just called onChildRemoved and then onChildAdded... not sure why we can't just
-                //call the two methods
+                //we basically just called onChildRemoved and then onChildAdded
 
                 if (previousChildName == null) {
                     models.add(0, newModel);
@@ -125,7 +125,7 @@ public abstract class FirebaseListAdapter<T> extends BaseAdapter {
             }
         });
     }
-        public void cleanup() {
+    public void cleanup() {
         FBRef.removeEventListener(mlistener);
         models.clear();
         keys.clear();

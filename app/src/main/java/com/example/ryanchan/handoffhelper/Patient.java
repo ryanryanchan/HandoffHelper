@@ -1,4 +1,5 @@
 package com.example.ryanchan.handoffhelper;
+import org.json.*;
 
 /**
  * Created by ryanchan on 11/15/16.
@@ -15,6 +16,11 @@ public class Patient {
     private String planOfCare;
     private String contingency;
 
+
+    Patient(){
+
+    }
+
     Patient( String bed, String sex, int age){
         this.bed = bed;
         this.sex = sex;
@@ -27,6 +33,10 @@ public class Patient {
         this.contingency = "";
 
     }
+
+
+
+
     //getters
     public int getAge() {
         return age;
