@@ -23,7 +23,8 @@
             android:label="Register">
         </activity>
 
-    <activity android:name=".MainActivity">
+    <activity android:name=".MainActivity"
+        android:launchMode="singleTop">
 
         </activity>
 
