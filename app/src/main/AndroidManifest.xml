@@ -23,6 +23,12 @@
             android:parentActivityName=".MainActivity">
 
         </activity>
+        
+        <activity android:name=".PatientProfile"
+            android:label="Patient Profile"
+            android:parentActivityName=".MainActivity">
+
+        </activity>
 
 
         <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
