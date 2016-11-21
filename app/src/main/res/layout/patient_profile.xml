@@ -18,18 +18,13 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         tools:context="ryanchan.handoffhelper.PatientProfile">
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
         <TextView
             android:id="@+id/PatientDescription"
             android:textSize="26dp"
             android:textStyle="bold"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="@drawable/layout_bg"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
@@ -43,7 +38,7 @@
             android:textStyle="bold"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="@drawable/layout_bg"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
@@ -55,7 +50,7 @@
             android:textSize="20dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="@drawable/layout_bg"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
@@ -67,7 +62,7 @@
             android:textSize="20dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="@drawable/layout_bg"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
@@ -81,7 +76,7 @@
             android:textStyle="bold"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="@drawable/layout_bg"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
@@ -94,7 +89,7 @@
             android:textSize="20dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
+            android:background="@drawable/layout_bg"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
