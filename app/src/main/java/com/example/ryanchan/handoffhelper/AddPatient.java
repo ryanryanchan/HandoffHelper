@@ -1,9 +1,7 @@
 package com.example.ryanchan.handoffhelper;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,11 +9,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
-import static android.R.attr.duration;
+import com.firebase.client.Firebase;
 
 public class AddPatient extends AppCompatActivity {
+
+    Firebase FB = new Firebase("https://handoffhelper-657e2.firebaseio.com/");
+
 
     private RadioGroup radioGroup;
     private RadioGroup genderGroup;
@@ -149,6 +149,8 @@ public class AddPatient extends AppCompatActivity {
 //            Context context = getApplicationContext();
 //            Toast toast = Toast.makeText(context, Integer.toString(age), Toast.LENGTH_SHORT);
 //            toast.show();
+
+            FB.push().setValue(patient);
 
 
             // After uploading new patient, heads back to main page

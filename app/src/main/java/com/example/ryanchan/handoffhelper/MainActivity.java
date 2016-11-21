@@ -2,6 +2,7 @@ package com.example.ryanchan.handoffhelper;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.database.DataSetObserver;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,11 +19,23 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private GoogleApiClient client;
+    Firebase FB = new Firebase("https://handoffhelper-657e2.firebaseio.com/");
+    private PatientListAdapter PLA;
+    private ValueEventListener mConnectedListener;
 
 
 
@@ -40,10 +53,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
         //patients in listview
-        populatePatientList();
-        populateListView();
+//        populatePatientList();
+//        populateListView();
         registerClickCallback();
+
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
 
         //setup navigation drawer layout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -51,8 +69,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         //setup actionbar toolbar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
 
 
         mDrawerToggle = new ActionBarDrawerToggle(
@@ -82,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -137,21 +159,6 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    //populates list of test patients
-    private void populatePatientList() {
-        for (int i = 0; i < 20; i++) {
-            Patient temp = new Patient(i + "", "M", 69);
-            temp.setChiefComplaint("HELP ME PLEASE I'M DYING BRO HELP ME PLEASE I'M DYING BRO HELP ME PLEASE I'M DYING BRO");
-            myPatients.add(temp);
-        }
-    }
-    //puts them in the screen
-    private void populateListView() {
-        ArrayAdapter<Patient> adapter = new PatientListAdapter();
-        ListView list = (ListView) findViewById(R.id.patientListView);
-        list.setAdapter(adapter);
-    }
-
     //makes list clickable
     private void registerClickCallback(){
         ListView list = (ListView)findViewById(R.id.patientListView);
@@ -168,35 +175,48 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
 
+        final ListView listView = (ListView) findViewById(R.id.patientListView);
+        PLA = new PatientListAdapter(FB, this, R.layout.listview_patient);
 
-    private class PatientListAdapter extends ArrayAdapter<Patient> {
-        public PatientListAdapter() {
-            super(MainActivity.this, R.layout.listview_patient, myPatients);
-        }
+        listView.setAdapter(PLA);
 
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View itemView = convertView;
-            if (itemView == null)
-                itemView = getLayoutInflater().inflate(R.layout.listview_patient, parent, false);
+        PLA.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                listView.setSelection(PLA.getCount() - 1);
+            }
+        });
 
-            Patient currentPatient = myPatients.get(position);
+        mConnectedListener = FB.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean connected = (Boolean) dataSnapshot.getValue();
+                if(connected) {
+                    Toast.makeText(MainActivity.this, "CONNECTED TO THIS", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Disconnected from Firebase", Toast.LENGTH_SHORT).show();
+                }
+            }
 
-            TextView bedText = (TextView) itemView.findViewById(R.id.patientBed);
-            bedText.setText("BED " + currentPatient.getBed());
-
-            TextView ageText = (TextView) itemView.findViewById(R.id.patientAgeSex);
-            ageText.setText(""+currentPatient.getAge() +"yo " + currentPatient.getSex());
-
-            TextView sexText = (TextView) itemView.findViewById(R.id.patientCC);
-            sexText.setText(currentPatient.getChiefComplaint());
-
-            return itemView;
-        }
-
-
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                //ok
+            }
+        });
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        FB.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
+        PLA.cleanup();
+    }
+
 
 
 
