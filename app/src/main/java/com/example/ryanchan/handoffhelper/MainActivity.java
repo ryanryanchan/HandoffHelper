@@ -1,3 +1,4 @@
+
 package com.example.ryanchan.handoffhelper;
 
 import android.content.Intent;
@@ -23,10 +24,12 @@ import com.firebase.client.ValueEventListener;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 
 
@@ -54,8 +57,10 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //patients in listview
-//        populatePatientList();
+
+
+
+
   //      populateListView();
         registerClickCallback();
 
@@ -104,6 +109,9 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
+
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
         if (mDrawerToggle.onOptionsItemSelected(item)) {
@@ -156,21 +164,7 @@ public class MainActivity extends AppCompatActivity  {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-//
-//    //populates list of test patients
-//    private void populatePatientList() {
-//        for (int i = 0; i < 20; i++) {
-//            Patient temp = new Patient(i + "", "M", 69);
-//            temp.setChiefComplaint("HELP ME PLEASE I'M DYING BRO HELP ME PLEASE I'M DYING BRO HELP ME PLEASE I'M DYING BRO");
-//            myPatients.add(temp);
-//        }
-//    }
-//    //puts them in the screen
-//    private void populateListView() {
-//        ArrayAdapter<Patient> adapter = new PPatientListAdapter();
-//        ListView list = (ListView) findViewById(R.id.patientListView);
-//        list.setAdapter(adapter);
-//    }
+
 
     //makes list clickable
     private void registerClickCallback(){
@@ -188,42 +182,13 @@ public class MainActivity extends AppCompatActivity  {
         });
     }
 
-
-
-//    private class PPatientListAdapter extends ArrayAdapter<Patient> {
-//        public PPatientListAdapter() {
-//            super(MainActivity.this, R.layout.listview_patient, myPatients);
-//        }
-//
-//        @Override
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//            View itemView = convertView;
-//            if (itemView == null)
-//                itemView = getLayoutInflater().inflate(R.layout.listview_patient, parent, false);
-//
-//            Patient currentPatient = myPatients.get(position);
-//
-//            TextView bedText = (TextView) itemView.findViewById(R.id.patientBed);
-//            bedText.setText("BED " + currentPatient.getBed());
-//
-//            TextView ageText = (TextView) itemView.findViewById(R.id.patientAgeSex);
-//            ageText.setText(""+currentPatient.getAge() +"yo " + currentPatient.getSex());
-//
-//            TextView sexText = (TextView) itemView.findViewById(R.id.patientCC);
-//            sexText.setText(currentPatient.getChiefComplaint());
-//
-//            return itemView;
-//        }
-//
-//
-//    }
-
+    
     @Override
     public void onStart() {
         super.onStart();
 
         final ListView listView = (ListView) findViewById(R.id.patientListView);
-        PLA = new PatientListAdapter(FB, this, R.layout.listview_patient);//, "A", "Male", 20);
+        PLA = new PatientListAdapter(FB, this, R.layout.listview_patient);
 
         listView.setAdapter(PLA);
 
@@ -252,12 +217,16 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
     }
+
     @Override
     public void onStop() {
         super.onStop();
         FB.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
         PLA.cleanup();
     }
+
+
+
 
 }
 

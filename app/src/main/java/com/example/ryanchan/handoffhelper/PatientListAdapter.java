@@ -12,6 +12,7 @@ import com.firebase.client.Query;
  */
 public class PatientListAdapter extends FirebaseListAdapter<Patient> {
 
+
     public PatientListAdapter(Query ref, Activity activity, int layout){
         super(ref, Patient.class, layout, activity);
     }
@@ -23,14 +24,12 @@ public class PatientListAdapter extends FirebaseListAdapter<Patient> {
         //textview: Bolded Bed # on left, followed by Age, Sex, Condition
 
         CharSequence bed = "BED " + patient.getBed();
-        CharSequence text2 = ""+patient.getAge() +"yo " + patient.getSex();
+        CharSequence text2 = ""+patient.getAge() +" y/o " + patient.getSex();
         CharSequence cc =  patient.getChiefComplaint();
 
         Log.d("TESTING", (String)bed);
         Log.d("TESTING", (String)text2);
         Log.d("TESTING", (String)cc);
-
-
 
 
         TextView bedText = (TextView) view.findViewById(R.id.patientBed);
