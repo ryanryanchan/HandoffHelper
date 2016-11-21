@@ -16,8 +16,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
@@ -84,6 +86,20 @@ public class MainActivity extends AppCompatActivity  {
         //setup navigation drawer layout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (LinearLayout) findViewById(R.id.left_drawer);
+        Spinner pulldown = (Spinner) findViewById(R.id.doctor_pulldown);
+        List<String> doctors_list = new ArrayList();
+        doctors_list.add("Select an option"); //dummy option
+        doctors_list.add("YoMAMA");
+        doctors_list.add("YOPAPA");
+        doctors_list.add("WANKER");
+        doctors_list.add("SKUNK");
+        doctors_list.add("HARR");
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, doctors_list);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        pulldown.setAdapter(adapter);
+
 
 
         //setup actionbar toolbar

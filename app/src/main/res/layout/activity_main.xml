@@ -47,16 +47,25 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="HANDING OFF TO: DOCTOR MOTHERFUCKER."
-                android:backgroundTint= "#6d6d6d"
+                android:paddingBottom="1dp"
+                android:text="HANDING OFF TO: "
                 android:textColor="@android:color/background_light" />
 
-            <TextView
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="NOTES: TRY NOT TO DIE K THANKS"-->
+                <!--android:backgroundTint= "#6d6d6d"-->
+                <!--android:textColor="@android:color/background_light" />-->
+
+            <Spinner
+                android:id="@+id/doctor_pulldown"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="NOTES: TRY NOT TO DIE K THANKS"
-                android:backgroundTint= "#6d6d6d"
-                android:textColor="@android:color/background_light" />
+                android:paddingTop="1dp"
+                android:paddingBottom="1dp"
+                android:background="#ffffff"
+                android:textColor="@android:color/background_light"></Spinner>
 
         </LinearLayout>
 
