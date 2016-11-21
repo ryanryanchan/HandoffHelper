@@ -5,7 +5,6 @@
     <string name="drawer_open">Drawer Opened</string>
     <string name="drawer_close">Drawer Closed</string>
 
-
     <string name="add_patient">Add Patient</string>
 
     <string name="condition">Condition:</string>
@@ -14,8 +13,14 @@
     <string name="plan">Plan of Care:</string>
     <string name="contingency">Contingency</string>
 
-
     <string name="severity">Severity</string>
     <string name="critical">Critical</string>
     <string name="stable">Stable</string>
+
+    <string name="save">Save</string>
+
+    <string name="dialog_message">First three fields are required</string>
+    <string name="dialog_title">Error</string>
+    <string name="ok">OK</string>
+
 </resources>

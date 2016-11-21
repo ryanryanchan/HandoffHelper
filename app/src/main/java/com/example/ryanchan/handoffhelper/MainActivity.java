@@ -1,5 +1,6 @@
 package com.example.ryanchan.handoffhelper;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.DataSetObserver;
 import android.support.v4.widget.DrawerLayout;
@@ -120,6 +121,8 @@ public class MainActivity extends AppCompatActivity  {
 
             case R.id.action_add:
                 //go to new patient page
+                Intent intent = new Intent(MainActivity.this, AddPatient.class);
+                startActivity(intent);
 
                 return true;
 
@@ -188,7 +191,7 @@ public class MainActivity extends AppCompatActivity  {
                         "You clicked the patient in bed " + clickedPatient.getBed() +
                         " who is a " + clickedPatient.getAge() + " year old " + clickedPatient.getSex() +
                         ".";
-                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
     }
