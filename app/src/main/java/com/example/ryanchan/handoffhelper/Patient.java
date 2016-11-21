@@ -17,9 +17,7 @@ public class Patient {
     private String contingency;
 
 
-    Patient(){
-
-    }
+    Patient(){}
 
     Patient( String bed, String sex, int age){
         this.bed = bed;

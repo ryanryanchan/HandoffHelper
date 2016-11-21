@@ -7,27 +7,22 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,9 +31,6 @@ import java.util.Map;
 
 
 public class MainActivity extends AppCompatActivity  {
-
-    //patientlistadapter
-    private PatientListAdapter mPatientlistadapter;
 
 
     //menu stuff
@@ -164,21 +156,21 @@ public class MainActivity extends AppCompatActivity  {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
-    //populates list of test patients
-    private void populatePatientList() {
-        for (int i = 0; i < 20; i++) {
-            Patient temp = new Patient(i + "", "M", 69);
-            temp.setChiefComplaint("HELP ME PLEASE I'M DYING BRO HELP ME PLEASE I'M DYING BRO HELP ME PLEASE I'M DYING BRO");
-            myPatients.add(temp);
-        }
-    }
-    //puts them in the screen
-    private void populateListView() {
-        ArrayAdapter<Patient> adapter = new PPatientListAdapter();
-        ListView list = (ListView) findViewById(R.id.patientListView);
-        list.setAdapter(adapter);
-    }
+//
+//    //populates list of test patients
+//    private void populatePatientList() {
+//        for (int i = 0; i < 20; i++) {
+//            Patient temp = new Patient(i + "", "M", 69);
+//            temp.setChiefComplaint("HELP ME PLEASE I'M DYING BRO HELP ME PLEASE I'M DYING BRO HELP ME PLEASE I'M DYING BRO");
+//            myPatients.add(temp);
+//        }
+//    }
+//    //puts them in the screen
+//    private void populateListView() {
+//        ArrayAdapter<Patient> adapter = new PPatientListAdapter();
+//        ListView list = (ListView) findViewById(R.id.patientListView);
+//        list.setAdapter(adapter);
+//    }
 
     //makes list clickable
     private void registerClickCallback(){
@@ -198,33 +190,33 @@ public class MainActivity extends AppCompatActivity  {
 
 
 
-    private class PPatientListAdapter extends ArrayAdapter<Patient> {
-        public PPatientListAdapter() {
-            super(MainActivity.this, R.layout.listview_patient, myPatients);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View itemView = convertView;
-            if (itemView == null)
-                itemView = getLayoutInflater().inflate(R.layout.listview_patient, parent, false);
-
-            Patient currentPatient = myPatients.get(position);
-
-            TextView bedText = (TextView) itemView.findViewById(R.id.patientBed);
-            bedText.setText("BED " + currentPatient.getBed());
-
-            TextView ageText = (TextView) itemView.findViewById(R.id.patientAgeSex);
-            ageText.setText(""+currentPatient.getAge() +"yo " + currentPatient.getSex());
-
-            TextView sexText = (TextView) itemView.findViewById(R.id.patientCC);
-            sexText.setText(currentPatient.getChiefComplaint());
-
-            return itemView;
-        }
-
-
-    }
+//    private class PPatientListAdapter extends ArrayAdapter<Patient> {
+//        public PPatientListAdapter() {
+//            super(MainActivity.this, R.layout.listview_patient, myPatients);
+//        }
+//
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//            View itemView = convertView;
+//            if (itemView == null)
+//                itemView = getLayoutInflater().inflate(R.layout.listview_patient, parent, false);
+//
+//            Patient currentPatient = myPatients.get(position);
+//
+//            TextView bedText = (TextView) itemView.findViewById(R.id.patientBed);
+//            bedText.setText("BED " + currentPatient.getBed());
+//
+//            TextView ageText = (TextView) itemView.findViewById(R.id.patientAgeSex);
+//            ageText.setText(""+currentPatient.getAge() +"yo " + currentPatient.getSex());
+//
+//            TextView sexText = (TextView) itemView.findViewById(R.id.patientCC);
+//            sexText.setText(currentPatient.getChiefComplaint());
+//
+//            return itemView;
+//        }
+//
+//
+//    }
 
     @Override
     public void onStart() {
