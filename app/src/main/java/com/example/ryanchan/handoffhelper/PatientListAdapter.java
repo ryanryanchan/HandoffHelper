@@ -27,9 +27,9 @@ public class PatientListAdapter extends FirebaseListAdapter<Patient> {
         CharSequence text2 = ""+patient.getAge() +" y/o " + patient.getSex();
         CharSequence cc =  patient.getChiefComplaint();
 
-        Log.d("TESTING", (String)bed);
-        Log.d("TESTING", (String)text2);
-        Log.d("TESTING", (String)cc);
+//        Log.d("TESTING", (String)bed);
+//        Log.d("TESTING", (String)text2);
+//        Log.d("TESTING", (String)cc);
 
 
         TextView bedText = (TextView) view.findViewById(R.id.patientBed);
