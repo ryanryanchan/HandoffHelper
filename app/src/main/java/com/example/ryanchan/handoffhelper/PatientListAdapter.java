@@ -31,6 +31,7 @@ public class PatientListAdapter extends FirebaseListAdapter<Patient> {
         Log.d("TESTING", (String)text2);
         Log.d("TESTING", (String)cc);
 
+
         TextView bedText = (TextView) view.findViewById(R.id.patientBed);
         bedText.setText(bed);
 

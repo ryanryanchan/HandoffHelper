@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,17 +27,19 @@ import com.firebase.client.ValueEventListener;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
-public class MainActivity extends AppCompatActivity {
 
-    private GoogleApiClient client;
-    Firebase FB = new Firebase("https://handoffhelper-657e2.firebaseio.com/");
-    private PatientListAdapter PLA;
-    private ValueEventListener mConnectedListener;
 
+public class MainActivity extends AppCompatActivity  {
+
+    //patientlistadapter
+    private PatientListAdapter mPatientlistadapter;
 
 
     //menu stuff
@@ -48,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
     private List<Patient> myPatients = new ArrayList<Patient>();
 
 
+    private GoogleApiClient client;
+    Firebase FB = new Firebase("https://handoffhelper-657e2.firebaseio.com/");
+    private PatientListAdapter PLA;
+    private ValueEventListener mConnectedListener;
+
+    private Map<String, Patient> patients = new HashMap<String, Patient>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +65,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        //patients in listview
-//        populatePatientList();
-//        populateListView();
+
+
+  //      populateListView();
         registerClickCallback();
+
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
@@ -99,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerToggle.syncState();
             }
         });
+
 
 
     }
@@ -159,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+
     //makes list clickable
     private void registerClickCallback(){
         ListView list = (ListView)findViewById(R.id.patientListView);
@@ -216,7 +229,6 @@ public class MainActivity extends AppCompatActivity {
         FB.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
         PLA.cleanup();
     }
-
 
 
 
