@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity  {
         });
 
 
-
     }
 
 
@@ -182,28 +181,6 @@ public class MainActivity extends AppCompatActivity  {
         // Pass any configuration change to the drawer toggls
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
-
-
-//    //makes list clickable
-//    private void registerClickCallback(){
-//        final ListView list = (ListView)findViewById(R.id.patientListView);
-//        list.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-//
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View viewClicked, int position, long id){
-//
-//                Log.d("TESTING", "onclick" );
-//
-//                Patient clickedPatient = list[id];
-//
-//                String message = "DAMN SON this will take us to patient page someday.\n" +
-//                        "You clicked the patient in bed " + clickedPatient.getBed() +
-//                        " who is a " + clickedPatient.getAge() + " year old " + clickedPatient.getSex() +
-//                        ".";
-//                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
 
     
     @Override

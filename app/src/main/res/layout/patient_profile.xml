@@ -14,87 +14,114 @@
         android:orientation="vertical"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingTop = "16dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
+        android:elevation="4dp"
         tools:context="ryanchan.handoffhelper.PatientProfile">
 
-        <TextView
+        <RelativeLayout
             android:id="@+id/PatientDescription"
-            android:textSize="26dp"
-            android:textStyle="bold"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/layout_bg"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:elevation="4dp">
+
+        <TextView
+            android:id="@+id/PatientProfileBed"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="16dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
             />
 
         <TextView
-            android:id="@+id/PatientCondition"
-            android:textSize="30dp"
-            android:textStyle="bold"
-            android:layout_width="fill_parent"
+            android:id="@+id/PatientProfileAge"
+            android:layout_alignParentEnd="true"
+            android:textSize="17dp"
+            android:textStyle="italic"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/layout_bg"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="16dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingRight="16dp"
             />
+
+
+        </RelativeLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/PatientCondition"-->
+            <!--android:textSize="30dp"-->
+            <!--android:textStyle="bold"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/layout_bg"-->
+            <!--android:paddingBottom="@dimen/activity_vertical_margin"-->
+            <!--android:paddingLeft="@dimen/activity_horizontal_margin"-->
+            <!--android:paddingRight="@dimen/activity_horizontal_margin"-->
+            <!--android:paddingTop="@dimen/activity_vertical_margin"-->
+            <!--android:layout_marginBottom="@dimen/activity_vertical_margin"-->
+            <!--/>-->
+
         <TextView
             android:id="@+id/PatientDiagnosis"
-            android:textSize="20dp"
+            android:textSize="17dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/layout_bg"
+            android:background="@drawable/layout_bg_white"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:elevation="4dp"
             />
         <TextView
             android:id="@+id/PatientOrder"
-            android:textSize="20dp"
+            android:textSize="17dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/layout_bg"
+            android:background="@drawable/layout_bg_white"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:elevation="4dp"
             />
 
         <TextView
             android:id="@+id/PatientCare"
-            android:textSize="30dp"
+            android:textSize="17dp"
             android:textStyle="bold"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/layout_bg"
+            android:background="@drawable/layout_bg_white"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:elevation="4dp"
             />
 
         <TextView
             android:id="@+id/PatientContingency"
-            android:textSize="20dp"
+            android:textSize="17dp"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/layout_bg"
+            android:background="@drawable/layout_bg_white"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:elevation="4dp"
             />
 
 
