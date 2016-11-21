@@ -146,9 +146,9 @@ public class AddPatient extends AppCompatActivity {
             patient.setContingency(contingency);
 
             // print feedback
-            Context context = getApplicationContext();
-            Toast toast = Toast.makeText(context, Integer.toString(age), Toast.LENGTH_SHORT);
-            toast.show();
+//            Context context = getApplicationContext();
+//            Toast toast = Toast.makeText(context, Integer.toString(age), Toast.LENGTH_SHORT);
+//            toast.show();
 
 
             // After uploading new patient, heads back to main page

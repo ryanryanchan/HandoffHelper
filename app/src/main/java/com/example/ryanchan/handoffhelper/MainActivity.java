@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
                         "You clicked the patient in bed " + clickedPatient.getBed() +
                         " who is a " + clickedPatient.getAge() + " year old " + clickedPatient.getSex() +
                         ".";
-                Toast.makeText(MainActivity.this, message, Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
             }
         });
     }
