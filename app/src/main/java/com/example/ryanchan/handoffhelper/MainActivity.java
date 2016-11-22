@@ -19,7 +19,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity  {
 
     //menu stuff
     private DrawerLayout mDrawerLayout;
-    private LinearLayout mDrawerList;
+    private RelativeLayout mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
 
     //mainscreen stuff
@@ -83,22 +85,41 @@ public class MainActivity extends AppCompatActivity  {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
 
+        String email = getIntent().getStringExtra("email");
+
+        TextView textView = (TextView) findViewById(R.id.drawer_user);
+        textView.setText("Hello, " + email);
+
         //setup navigation drawer layout
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (LinearLayout) findViewById(R.id.left_drawer);
+        mDrawerList = (RelativeLayout) findViewById(R.id.left_drawer);
+        //spinner stuff
+
         Spinner pulldown = (Spinner) findViewById(R.id.doctor_pulldown);
         List<String> doctors_list = new ArrayList();
         doctors_list.add("Select an option"); //dummy option
-        doctors_list.add("YoMAMA");
-        doctors_list.add("YOPAPA");
-        doctors_list.add("WANKER");
-        doctors_list.add("SKUNK");
-        doctors_list.add("HARR");
+        doctors_list.add("Doctor1");
+        doctors_list.add("Doctor2");
+        doctors_list.add("Doctor3");
+        doctors_list.add("Doctor4");
+        doctors_list.add("Doctor5");
 
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, doctors_list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         pulldown.setAdapter(adapter);
+
+        pulldown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("!!!!!!", ""+ adapterView.getItemAtPosition(i));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
 
@@ -203,19 +224,6 @@ public class MainActivity extends AppCompatActivity  {
     public void onStart() {
         super.onStart();
 
-//        //final ListView listView = (ListView) findViewById(R.id.patientListView);
-//        PLA = new PatientListAdapter(FB, this, R.layout.listview_patient);
-//
-//      //  listView.setAdapter(PLA);
-//
-//        PLA.registerDataSetObserver(new DataSetObserver() {
-//            @Override
-//            public void onChanged() {
-//                super.onChanged();
-//                listView.setSelection(PLA.getCount() - 1);
-//            }
-//        });
-
         mConnectedListener = FB.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -246,7 +254,12 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
+    public void logout(View view) {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        finish();
+        startActivity(intent);
 
+    }
 }
 
 

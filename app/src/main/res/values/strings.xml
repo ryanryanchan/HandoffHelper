@@ -22,5 +22,6 @@
     <string name="dialog_message">First three fields are required</string>
     <string name="dialog_title">Error</string>
     <string name="ok">OK</string>
+    <string name="logout">LOGOUT</string>
 
 </resources>

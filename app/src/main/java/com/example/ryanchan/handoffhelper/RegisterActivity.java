@@ -1,5 +1,6 @@
 package com.example.ryanchan.handoffhelper;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -30,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private FirebaseAuth firebaseAuth;
 
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate (Bundle savedInstanceState){
@@ -37,6 +39,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.register);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        progressDialog = new ProgressDialog(this);
 
         editEmail = (EditText) findViewById(R.id.editTextEmail);
         editPassword = (EditText) findViewById(R.id.editTextPassword);
@@ -62,6 +66,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             return;
         }
 
+        if(password.length() < 6){
+            Toast.makeText(this,"Password must be greater than 6 characters",Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        progressDialog.setMessage("Registering User...");
+        progressDialog.show();
+
 
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
@@ -69,8 +81,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             finish();
-                            Log.d("TESTING", "LOGIN SUCCESS");
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        }
+                        else{
+                            Toast.makeText(RegisterActivity.this, "Could not register... please try again", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -80,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View view){
         if (view == register){
-            Log.d("TESTING", "LOGIN SUCCESS");
+            //Log.d("TESTING", "LOGIN SUCCESS");
             Login();
         }
 
