@@ -1,11 +1,13 @@
 
 package com.example.ryanchan.handoffhelper;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.DataSetObserver;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -110,12 +112,35 @@ public class MainActivity extends AppCompatActivity  {
 
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, doctors_list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        pulldown.setAdapter(adapter);
+
 
         pulldown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("!!!!!!", ""+ adapterView.getItemAtPosition(i));
+                if(!adapterView.getItemAtPosition(i).equals("Select an option")) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    builder.setMessage("Are you sure you want to hand off to " + adapterView.getItemAtPosition(i))
+                            .setTitle("Handing off");
+
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User clicked yes button
+                            dialog.dismiss();
+                        }
+                    });
+
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // User clicked no button
+                            dialog.dismiss();
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+                }
             }
 
             @Override
@@ -123,6 +148,9 @@ public class MainActivity extends AppCompatActivity  {
 
             }
         });
+
+
+        pulldown.setAdapter(adapter);
 
 
 
