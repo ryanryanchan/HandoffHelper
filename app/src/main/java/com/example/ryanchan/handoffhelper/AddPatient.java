@@ -156,7 +156,7 @@ public class AddPatient extends AppCompatActivity {
 //            Toast toast = Toast.makeText(context, Integer.toString(age), Toast.LENGTH_SHORT);
 //            toast.show();
 
-            FB.push().setValue(patient);
+            FB.child(patient.getBed()).setValue(patient);
 
             Log.d("WHO ARE YOU",patient.getDoctor());
             // After uploading new patient, heads back to main page

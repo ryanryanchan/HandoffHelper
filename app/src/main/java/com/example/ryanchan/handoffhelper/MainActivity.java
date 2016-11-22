@@ -26,12 +26,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 import java.util.ArrayList;
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity  {
     private RelativeLayout mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private String email;
+    private String handoff;
 
     //mainscreen stuff
    // private List<Patient> myPatients = new ArrayList<Patient>();
@@ -63,14 +68,23 @@ public class MainActivity extends AppCompatActivity  {
 
     private Map<String, Patient> patients = new HashMap<String, Patient>();
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
         email = getIntent().getStringExtra("email");
+
+
+
         // creates the adapter for home screen
         mainAdapter = new ChrisAdapter(this, R.layout.listview_patient,email);
-//        mainAdapter.populatePatientList();
 
         //attatching the adapter to the recyclerview
         RecyclerView listingsView = (RecyclerView)findViewById(R.id.patientListView);
@@ -97,16 +111,22 @@ public class MainActivity extends AppCompatActivity  {
         //spinner stuff
 
         Spinner pulldown = (Spinner) findViewById(R.id.doctor_pulldown);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+
         List<String> doctors_list = new ArrayList();
 
-
-
         doctors_list.add("Select an option"); //dummy option
-        doctors_list.add("Doctor1");
-        doctors_list.add("Doctor2");
-        doctors_list.add("Doctor3");
-        doctors_list.add("Doctor4");
-        doctors_list.add("Doctor5");
+        doctors_list.add("dr.chan@medapp.jam");
+        doctors_list.add("dr.cheung@medapp.jam");
+        doctors_list.add("dr.lew@medapp.jam");
+        doctors_list.add("dr.liu@medapp.jam");
+        doctors_list.add("dr.ching@medapp.jam");
 
 
 
@@ -117,7 +137,8 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.d("!!!!!!", ""+ adapterView.getItemAtPosition(i));
-                if(!adapterView.getItemAtPosition(i).equals("Select an option")) {
+                if(!adapterView.getItemAtPosition(i).equals("Select an option") || adapterView.getItemAtPosition(i).equals(email)) {
+                    handoff = (String) adapterView.getItemAtPosition(i);
                     AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     builder.setMessage("Are you sure you want to hand off to " + adapterView.getItemAtPosition(i))
                             .setTitle("Handing off");
@@ -126,6 +147,9 @@ public class MainActivity extends AppCompatActivity  {
                         public void onClick(DialogInterface dialog, int id) {
                             // User clicked yes button
                             dialog.dismiss();
+                            mainAdapter.setHandoff(handoff);
+                            finish();
+                            startActivity(getIntent());
                         }
                     });
 

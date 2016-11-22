@@ -32,6 +32,7 @@ public class ChrisAdapter extends RecyclerView.Adapter<PatientHolder> {
     private Firebase fireGod;
     private List<String> keys;   //list of keys, in this case...
     private String doctor;
+    private String handoff;
 
     public ChrisAdapter(Context context, int itemResource, String doctor) {
         super();
@@ -206,6 +207,20 @@ public class ChrisAdapter extends RecyclerView.Adapter<PatientHolder> {
     }
 
     public void setDoctor(String doctor){ this.doctor = doctor;}
+
+    public void setHandoff(String handoff){this.handoff = handoff;
+       for(int i = 0; i < patients.size(); i++){
+           if (patients.get(i).getDoctor().equals(doctor) || patients.get(i).getHandoff().equals(doctor)) {
+               String taskId = patients.get(i).getBed();
+               //Firebase objRef = fireGod.child(taskId);
+               Firebase taskRef = fireGod.child(taskId);
+               Firebase statusRef = taskRef.child("handoff");
+               Firebase statusRef2 = taskRef.child("doctor");
+               statusRef2.setValue(doctor);
+               statusRef.setValue(handoff);
+           }
+       }
+    }
 }
 
 
