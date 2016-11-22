@@ -12,15 +12,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by Chris on 11/20/2016.
  */
 
 public class PatientHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    private final TextView patientBed;
-    private final TextView patientAgeSex;
-    private final TextView patientCC;
-    private final RelativeLayout patientRelativeLayout;
+    private TextView patientBed;
+    private TextView patientAgeSex;
+    private TextView patientCC;
+    private RelativeLayout patientRelativeLayout;
 
     private Patient patient;
     private Context context;
@@ -38,19 +40,30 @@ public class PatientHolder extends RecyclerView.ViewHolder implements View.OnCli
         itemView.setOnClickListener(this);
     }
 
-    public void bindPatient(Patient patient) {
-        this.patient = patient;
-        this.patientBed.setText("BED " + patient.getBed());
-        this.patientAgeSex.setText("" + patient.getAge() + "yo " + patient.getSex());
-        this.patientCC.setText(patient.getChiefComplaint());
-        Drawable patientBoxDrawable = (Drawable) this.patientRelativeLayout.getBackground();
-        if (patientBoxDrawable instanceof GradientDrawable){
-            GradientDrawable patientBoxGD = (GradientDrawable) patientBoxDrawable;
-            patientBoxGD.setColor(severityColor(this.patient));
-            patientBoxGD.setStroke(3,severityColor(this.patient));
+    public void bindPatient(Patient patient, String doctor) {
+        if (doctor.equals(patient.getDoctor()) || doctor.equals(patient.getHandoff())) {
+            this.patient = patient;
+            this.patientBed.setText("BED " + patient.getBed());
+            this.patientAgeSex.setText("" + patient.getAge() + "yo " + patient.getSex());
+            this.patientCC.setText(patient.getChiefComplaint());
+            Drawable patientBoxDrawable = (Drawable) this.patientRelativeLayout.getBackground();
+            if (patientBoxDrawable instanceof GradientDrawable) {
+                GradientDrawable patientBoxGD = (GradientDrawable) patientBoxDrawable;
+                patientBoxGD.setColor(severityColor(this.patient));
+                patientBoxGD.setStroke(3, severityColor(this.patient));
+            } else if (patientBoxDrawable instanceof ColorDrawable) {
+            }
+        } else {
+            this.patientRelativeLayout = (RelativeLayout) itemView.findViewById(R.id.empty_layout);
+//            this.patientRelativeLayout.setVisibility(View.GONE);
+            this.patientAgeSex = (TextView)itemView.findViewById(R.id.empty_text);
+//            this.patientAgeSex.setVisibility(View.GONE);
+            this.patientCC = (TextView)itemView.findViewById(R.id.empty_text);
+//            this.patientCC.setVisibility(View.GONE);
+            this.patientBed = (TextView)itemView.findViewById(R.id.empty_text);
+//            this.patientBed.setVisibility(View.GONE);
         }
-        else if (patientBoxDrawable instanceof ColorDrawable){
-        }
+
     }
 
     @Override

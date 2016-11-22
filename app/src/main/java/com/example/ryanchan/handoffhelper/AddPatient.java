@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -14,13 +15,14 @@ import com.firebase.client.Firebase;
 
 public class AddPatient extends AppCompatActivity {
 
-    Firebase FB = new Firebase("https://handoffhelper-657e2.firebaseio.com/");
+    Firebase FB = new Firebase("https://temp-hh.firebaseio.com/");
 
 
     private RadioGroup radioGroup;
     private RadioGroup genderGroup;
     private int severity;
     private String gender = "";
+    private String doctor = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +149,8 @@ public class AddPatient extends AppCompatActivity {
             String contingency = backup.getText().toString();
             patient.setContingency(contingency);
 
+            patient.setDoctor(getIntent().getStringExtra("doctor"));
+
             // print feedback
 //            Context context = getApplicationContext();
 //            Toast toast = Toast.makeText(context, Integer.toString(age), Toast.LENGTH_SHORT);
@@ -154,9 +158,11 @@ public class AddPatient extends AppCompatActivity {
 
             FB.push().setValue(patient);
 
-
+            Log.d("WHO ARE YOU",patient.getDoctor());
             // After uploading new patient, heads back to main page
             Intent intent = new Intent(AddPatient.this, MainActivity.class);
+            intent.putExtra("email",patient.getDoctor());
+
             startActivity(intent);
 
 

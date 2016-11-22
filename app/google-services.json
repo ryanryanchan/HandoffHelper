@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "821896150863",
-    "firebase_url": "https://handoffhelper-657e2.firebaseio.com",
-    "project_id": "handoffhelper-657e2",
-    "storage_bucket": "handoffhelper-657e2.appspot.com"
+    "project_number": "1015160786723",
+    "firebase_url": "https://temp-hh.firebaseio.com",
+    "project_id": "temp-hh",
+    "storage_bucket": "temp-hh.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:821896150863:android:4734b267be052fb9",
+        "mobilesdk_app_id": "1:1015160786723:android:4734b267be052fb9",
         "android_client_info": {
           "package_name": "com.example.ryanchan.handoffhelper"
         }
       },
       "oauth_client": [
         {
-          "client_id": "821896150863-0kh108ik00gcjo3d0m5a1ajioggjo52f.apps.googleusercontent.com",
+          "client_id": "1015160786723-vdggg9siv3rt30qr7l5g0r945q9585nf.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA6ArZgxUsWPbnCcFgkOql2OrD-4tXwH-w"
+          "current_key": "AIzaSyDsuMPu8y2QFG-8YuAoHQw16vUHblcitNQ"
         }
       ],
       "services": {
