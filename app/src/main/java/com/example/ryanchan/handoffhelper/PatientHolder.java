@@ -84,7 +84,6 @@ public class PatientHolder extends RecyclerView.ViewHolder implements View.OnCli
             intent.putExtra("PATIENT_CONTINGENCY",patient.getContingency());
             intent.putExtra("PATIENT_DOCTOR", patient.getDoctor());
             intent.putExtra("PATIENT_HANDOFF", patient.getHandoff());
-
             context.startActivity(intent);
         }
     }

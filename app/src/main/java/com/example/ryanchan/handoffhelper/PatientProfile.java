@@ -21,6 +21,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.Firebase;
+
 import org.w3c.dom.Text;
 
 import java.util.List;
@@ -28,17 +30,19 @@ import java.util.List;
 import static android.R.attr.duration;
 
 public class PatientProfile extends AppCompatActivity {
-    private String bed;
-    private String sex;
-    private String age;
-    private String chiefComplaint;
-    private String diagnosis;
-    private String testsOrdered;
+    private String bed = " ";
+    private String sex = " ";
+    private String age = " ";
+    private String chiefComplaint = " ";
+    private String diagnosis = " ";
+    private String testsOrdered = " ";
     private String severity;
-    private String planOfCare;
-    private String contingency;
-    private String doctor;
-    private String handoff;
+    private String planOfCare = " ";
+    private String contingency = " ";
+    private String doctor = " ";
+    private String handoff = " ";
+
+    Firebase FB = new Firebase("https://temp-hh.firebaseio.com/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,10 +60,10 @@ public class PatientProfile extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
+        //editing switch statement
         switch (item.getItemId()){
             case R.id.action_edit:
-                //edits
-
+                //save the values to send into the next activity
                 Intent intent = new Intent(this, EditPatient.class);
                 intent.putExtra("PATIENT_BED",bed);
                 intent.putExtra("PATIENT_SEX",sex);
@@ -87,7 +91,6 @@ public class PatientProfile extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
@@ -105,7 +108,10 @@ public class PatientProfile extends AppCompatActivity {
         }
 
         int severe;
-        if(severity != null){severe = Integer.parseInt(severity);}
+
+        if(severity != null){
+            severe = Integer.parseInt(severity);
+        }
         else{severe = 6;}
 
 
@@ -201,6 +207,37 @@ public class PatientProfile extends AppCompatActivity {
         contingencyView.setText(message.toString());
 
 
+    }
+
+    public void deletePatient(View view){
+        //alert dialog
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(PatientProfile.this);
+        builder.setMessage("Are you sure you want to delete?")
+                .setTitle("Delete Patient");
+
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked yes button
+                dialog.dismiss();
+                FB.child(bed).child("doctor").setValue("XXXXXXXXXXXXXXXX");
+                Intent intent = new Intent(PatientProfile.this, MainActivity.class);
+                intent.putExtra("email", doctor);
+
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User clicked no button
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 

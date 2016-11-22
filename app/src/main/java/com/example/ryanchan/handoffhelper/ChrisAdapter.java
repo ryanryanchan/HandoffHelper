@@ -158,9 +158,14 @@ public class ChrisAdapter extends RecyclerView.Adapter<PatientHolder> {
 //        return patients.size();
         int count = 0;
         for (int i = 0; i < patients.size(); i++){
-            if (doctor.equals(patients.get(i).getDoctor()) || doctor.equals(patients.get(i).getHandoff())){
-                count++;
+
+            if(doctor != null){
+                if ( doctor.equals(patients.get(i).getDoctor()) ||
+                        doctor.equals(patients.get(i).getHandoff())){
+                    count++;
+                }
             }
+
         }
         return count;
     }
@@ -210,15 +215,18 @@ public class ChrisAdapter extends RecyclerView.Adapter<PatientHolder> {
 
     public void setHandoff(String handoff){this.handoff = handoff;
        for(int i = 0; i < patients.size(); i++){
-           if (patients.get(i).getDoctor().equals(doctor) || patients.get(i).getHandoff().equals(doctor)) {
-               String taskId = patients.get(i).getBed();
-               //Firebase objRef = fireGod.child(taskId);
-               Firebase taskRef = fireGod.child(taskId);
-               Firebase statusRef = taskRef.child("handoff");
-               Firebase statusRef2 = taskRef.child("doctor");
-               statusRef2.setValue(doctor);
-               statusRef.setValue(handoff);
+           if (patients.get(i).getDoctor()!= null && patients.get(i).getHandoff() != null && doctor != null){
+               if (patients.get(i).getDoctor().equals(doctor) || patients.get(i).getHandoff().equals(doctor)) {
+                   String taskId = patients.get(i).getBed();
+                   //Firebase objRef = fireGod.child(taskId);
+                   Firebase taskRef = fireGod.child(taskId);
+                   Firebase statusRef = taskRef.child("handoff");
+                   Firebase statusRef2 = taskRef.child("doctor");
+                   statusRef2.setValue(doctor);
+                   statusRef.setValue(handoff);
+               }
            }
+
        }
     }
 }

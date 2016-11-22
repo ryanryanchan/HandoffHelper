@@ -158,7 +158,6 @@ public class AddPatient extends AppCompatActivity {
 
             FB.child(patient.getBed()).setValue(patient);
 
-            Log.d("WHO ARE YOU",patient.getDoctor());
             // After uploading new patient, heads back to main page
             Intent intent = new Intent(AddPatient.this, MainActivity.class);
             intent.putExtra("email",patient.getDoctor());

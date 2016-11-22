@@ -4,7 +4,6 @@ package com.example.ryanchan.handoffhelper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.database.DataSetObserver;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -19,8 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -43,7 +40,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static android.R.attr.type;
 
 
 public class MainActivity extends AppCompatActivity  {
@@ -57,11 +53,8 @@ public class MainActivity extends AppCompatActivity  {
     private String email;
     private String handoff;
 
-    //mainscreen stuff
-   // private List<Patient> myPatients = new ArrayList<Patient>();
-
-
     private GoogleApiClient client;
+    //firebase starting
     Firebase FB = new Firebase("https://temp-hh.firebaseio.com/");
     private PatientListAdapter PLA;
     private ValueEventListener mConnectedListener;
@@ -69,19 +62,12 @@ public class MainActivity extends AppCompatActivity  {
     private Map<String, Patient> patients = new HashMap<String, Patient>();
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-
+        //grab username
         email = getIntent().getStringExtra("email");
-
-
 
         // creates the adapter for home screen
         mainAdapter = new ChrisAdapter(this, R.layout.listview_patient,email);
@@ -109,11 +95,7 @@ public class MainActivity extends AppCompatActivity  {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (RelativeLayout) findViewById(R.id.left_drawer);
         //spinner stuff
-
         Spinner pulldown = (Spinner) findViewById(R.id.doctor_pulldown);
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -127,9 +109,6 @@ public class MainActivity extends AppCompatActivity  {
         doctors_list.add("dr.lew@medapp.jam");
         doctors_list.add("dr.liu@medapp.jam");
         doctors_list.add("dr.ching@medapp.jam");
-
-
-
         ArrayAdapter<String> adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, doctors_list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -213,7 +192,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
-
+    //switch cases for the action bar
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
 
@@ -278,18 +257,19 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     public void onStart() {
         super.onStart();
+        //grabs the email from the login screen
         email = getIntent().getStringExtra("email");
-//        Log.d("AHHHHHHHHHHHHHHHH",email);
         mainAdapter.setDoctor(email);
 
         mConnectedListener = FB.getRoot().child(".info/connected").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 boolean connected = (Boolean) dataSnapshot.getValue();
+                //connection confirmations
                 if(connected) {
-                    Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(MainActivity.this, "Disconnected", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(MainActivity.this, "Disconnected", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -304,7 +284,6 @@ public class MainActivity extends AppCompatActivity  {
     public void onStop() {
         super.onStop();
         FB.getRoot().child(".info/connected").removeEventListener(mConnectedListener);
-//        PLA.cleanup();
     }
 
     public static ChrisAdapter getViewAdapter() {
