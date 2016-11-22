@@ -17,6 +17,8 @@ public class Patient {
     private int severity;
     private String planOfCare;
     private String contingency;
+    private String doctor;
+    private String handoff;
 
 
     Patient(){
@@ -33,7 +35,8 @@ public class Patient {
         this.severity = 6;
         this.planOfCare = "";
         this.contingency = "";
-
+        this.doctor = "";
+        this.handoff="";
     }
 
 
@@ -70,6 +73,10 @@ public class Patient {
         return testsOrdered;
     }
 
+    public String getDoctor(){return doctor;}
+
+    public String getHandoff(){return handoff;}
+
     //setters
     public void setAge(int age) {
         this.age = age;
@@ -98,6 +105,10 @@ public class Patient {
     public void setTestsOrdered(String testsOrdered) {
         this.testsOrdered = testsOrdered;
     }
+
+    public void setDoctor(String doctor){this.doctor = doctor;}
+
+    public void setHandoff(String handoff){this.handoff = handoff;}
 
 
     public static Comparator<Patient> PatientBedComparator = new Comparator<Patient>(){

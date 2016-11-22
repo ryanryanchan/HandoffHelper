@@ -52,12 +52,14 @@
                 <TextView
                     android:id="@+id/drawer_user"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textSize="17dp"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="1dp"
-                    android:text="HANDING OFF TO: " />
+                    android:text="\nHANDING OFF TO: "
+                    android:textSize="17dp"/>
 
                 <Spinner
                     android:id="@+id/doctor_pulldown"
@@ -69,11 +71,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="NOTES:"/>
+                    android:text="\nNOTES:"
+                    android:textSize="17dp"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="- Patient in bed 2 feels better \n -when can we smash again\n- time to rewrite everything "/>
+                    android:text="- Patient in bed 2 feels better \n"
+                    android:textSize="17dp"/>
 
 
             </LinearLayout>
