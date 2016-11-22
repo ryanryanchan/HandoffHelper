@@ -52,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         textViewSignIn.setOnClickListener(this);
     }
 
-    private void Login(){
+    private void Register(){
         String email = editEmail.getText().toString().trim();
         String password = editPassword.getText().toString().trim();
 
@@ -79,6 +79,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>(){
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
                         if(task.isSuccessful()){
                             finish();
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
@@ -95,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view){
         if (view == register){
             //Log.d("TESTING", "LOGIN SUCCESS");
-            Login();
+            Register();
         }
 
         if (view == textViewSignIn){

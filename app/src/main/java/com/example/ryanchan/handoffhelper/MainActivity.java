@@ -97,6 +97,9 @@ public class MainActivity extends AppCompatActivity  {
 
         Spinner pulldown = (Spinner) findViewById(R.id.doctor_pulldown);
         List<String> doctors_list = new ArrayList();
+
+
+
         doctors_list.add("Select an option"); //dummy option
         doctors_list.add("Doctor1");
         doctors_list.add("Doctor2");
