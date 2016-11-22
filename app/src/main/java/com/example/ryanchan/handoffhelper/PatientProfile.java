@@ -11,6 +11,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,6 +37,8 @@ public class PatientProfile extends AppCompatActivity {
     private String severity;
     private String planOfCare;
     private String contingency;
+    private String doctor;
+    private String handoff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +70,8 @@ public class PatientProfile extends AppCompatActivity {
                 intent.putExtra("PATIENT_SEVERITY",severity);
                 intent.putExtra("PATIENT_PLAN",planOfCare);
                 intent.putExtra("PATIENT_CONTINGENCY",contingency);
-
+                intent.putExtra("PATIENT_DOCTOR", doctor);
+                intent.putExtra("PATIENT_HANDOFF", handoff);
                 this.startActivity(intent);
 
                 return true;
@@ -82,7 +86,10 @@ public class PatientProfile extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+
         Bundle extras = getIntent().getExtras();
+
         if (extras != null) {
             bed = extras.getString("PATIENT_BED"); //required
             sex = extras.getString("PATIENT_SEX"); //required
@@ -93,10 +100,15 @@ public class PatientProfile extends AppCompatActivity {
             severity = extras.getString("PATIENT_SEVERITY");
             planOfCare = extras.getString("PATIENT_PLAN");
             contingency = extras.getString("PATIENT_CONTINGENCY");
+            doctor = extras.getString("PATIENT_DOCTOR");
+            handoff = extras.getString("PATIENT_HANDOFF");
         }
 
+        int severe;
+        if(severity != null){severe = Integer.parseInt(severity);}
+        else{severe = 6;}
 
-        int severe = Integer.parseInt(severity);
+
         StringBuilder message = new StringBuilder();
 
         if (sex.equals("M")) {
@@ -191,80 +203,6 @@ public class PatientProfile extends AppCompatActivity {
 
     }
 
-
-
-
-//    public void savePatient(View view) {
-//
-//        int age = -1;
-//
-//        // constructs a patient
-//        EditText bed = (EditText) findViewById(R.id.EditBedNumber);
-//        String bedNo = bed.getText().toString();
-//
-//        EditText years = (EditText) findViewById(R.id.EditAge);
-//        if (!years.getText().toString().equals("")) {
-//
-//            age = Integer.parseInt(years.getText().toString());
-//        }
-//
-//        EditText sex = (EditText) findViewById(R.id.EditGender);
-//        String gender = sex.getText().toString();
-//
-//
-//        if (bedNo.equals("") || gender.equals("") || age < 0) {
-//            AlertDialog.Builder builder = new AlertDialog.Builder(PatientProfile.this);
-//            builder.setMessage(R.string.dialog_message)
-//                    .setTitle(R.string.dialog_title);
-//
-//
-//            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-//                public void onClick(DialogInterface dialog, int id) {
-//                    // User clicked OK button
-//                    dialog.dismiss();
-//                }
-//            });
-//
-//            AlertDialog dialog = builder.create();
-//            dialog.show();
-//
-//        } else {
-//
-//            Patient patient = new Patient(bedNo, gender, age);
-//
-//            EditText complaint = (EditText) findViewById(R.id.EditCondition);
-//            String condition = complaint.getText().toString();
-//            patient.setChiefComplaint(condition);
-//
-//            EditText diagnostic = (EditText) findViewById(R.id.EditDiagnosis);
-//            String diagnosis = diagnostic.getText().toString();
-//            patient.setDiagnosis(diagnosis);
-//
-//            EditText test = (EditText) findViewById(R.id.EditTestsOrdered);
-//            String tests = test.getText().toString();
-//            patient.setTestsOrdered(tests);
-//
-//            EditText plan = (EditText) findViewById(R.id.EditPlanOfCare);
-//            String care = plan.getText().toString();
-//            patient.setPlanOfCare(care);
-//
-//            EditText backup = (EditText) findViewById(R.id.EditContingency);
-//            String contingency = backup.getText().toString();
-//            patient.setContingency(contingency);
-//
-//            // print feedback
-//            Context context = getApplicationContext();
-//            Toast toast = Toast.makeText(context, Integer.toString(age), Toast.LENGTH_SHORT);
-//            toast.show();
-//
-//
-//            // After uploading new patient, heads back to main page
-//            Intent intent = new Intent(PatientProfile.this, MainActivity.class);
-//            startActivity(intent);
-//
-//
-//        }
-//    }
 
 
 }

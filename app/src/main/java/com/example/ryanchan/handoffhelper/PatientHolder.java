@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -69,7 +70,6 @@ public class PatientHolder extends RecyclerView.ViewHolder implements View.OnCli
     @Override
     public void onClick(View v) {
         if (this.patient != null) {
-
             Intent intent = new Intent(this.context, PatientProfile.class);
             String age = Integer.toString(patient.getAge());
             String severity = Integer.toString(patient.getSeverity());
@@ -82,13 +82,10 @@ public class PatientHolder extends RecyclerView.ViewHolder implements View.OnCli
             intent.putExtra("PATIENT_SEVERITY",severity);
             intent.putExtra("PATIENT_PLAN",patient.getPlanOfCare());
             intent.putExtra("PATIENT_CONTINGENCY",patient.getContingency());
+            intent.putExtra("PATIENT_DOCTOR", patient.getDoctor());
+            intent.putExtra("PATIENT_HANDOFF", patient.getHandoff());
 
             context.startActivity(intent);
-//            String message = "DAMN SON this will take us to patient page someday.\n" +
-//                    "You clicked the patient in bed " + patient.getBed() +
-//                    " who is a " + patient.getAge() + " year old " + patient.getSex() +
-//                    ".";
-//            Toast.makeText(this.context, message, Toast.LENGTH_LONG).show();
         }
     }
 
