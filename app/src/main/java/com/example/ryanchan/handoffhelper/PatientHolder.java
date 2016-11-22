@@ -41,7 +41,7 @@ public class PatientHolder extends RecyclerView.ViewHolder implements View.OnCli
     public void bindPatient(Patient patient) {
         this.patient = patient;
         this.patientBed.setText("BED " + patient.getBed());
-        this.patientAgeSex.setText("" + patient.getAge() + " yo" + patient.getSex());
+        this.patientAgeSex.setText("" + patient.getAge() + "yo " + patient.getSex());
         this.patientCC.setText(patient.getChiefComplaint());
         Drawable patientBoxDrawable = (Drawable) this.patientRelativeLayout.getBackground();
         if (patientBoxDrawable instanceof GradientDrawable){

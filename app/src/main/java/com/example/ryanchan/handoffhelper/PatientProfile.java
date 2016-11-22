@@ -57,6 +57,19 @@ public class PatientProfile extends AppCompatActivity {
             case R.id.action_edit:
                 //edits
 
+                Intent intent = new Intent(this, EditPatient.class);
+                intent.putExtra("PATIENT_BED",bed);
+                intent.putExtra("PATIENT_SEX",sex);
+                intent.putExtra("PATIENT_AGE",age);
+                intent.putExtra("PATIENT_COMPLAINT",chiefComplaint);
+                intent.putExtra("PATIENT_DIAGNOSIS",diagnosis);
+                intent.putExtra("PATIENT_TESTS",testsOrdered);
+                intent.putExtra("PATIENT_SEVERITY",severity);
+                intent.putExtra("PATIENT_PLAN",planOfCare);
+                intent.putExtra("PATIENT_CONTINGENCY",contingency);
+
+                this.startActivity(intent);
+
                 return true;
 
             default:

@@ -3,11 +3,13 @@ package com.example.ryanchan.handoffhelper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.firebase.client.Firebase;
@@ -22,8 +24,15 @@ public class EditPatient extends AppCompatActivity {
 
     private RadioGroup radioGroup;
     private RadioGroup genderGroup;
+    private String bed;
+    private String sex;
+    private String age;
+    private String chiefComplaint;
+    private String diagnosis;
+    private String testsOrdered;
     private int severity;
-    private String gender = "";
+    private String planOfCare;
+    private String contingency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +44,70 @@ public class EditPatient extends AppCompatActivity {
 
         severity = addListenerOnButton();
 
-        gender = GenderButton();
+        sex = GenderButton();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            bed = extras.getString("PATIENT_BED"); //required
+            sex = extras.getString("PATIENT_SEX"); //required
+            age = extras.getString("PATIENT_AGE"); //required
+            if (extras.getString("PATIENT_COMPLAINT") != null)
+                chiefComplaint = extras.getString("PATIENT_COMPLAINT");
+            if (extras.getString("PATIENT_DIAGNOSIS") != null)
+                diagnosis = extras.getString("PATIENT_DIAGNOSIS");
+            if (extras.getString("PATIENT_TESTS") != null)
+                testsOrdered = extras.getString("PATIENT_TESTS");
+            if (extras.getString("PATIENT_SEVERITY") != null)
+                severity = Integer.parseInt(extras.getString("PATIENT_SEVERITY"));
+            if (extras.getString("PATIENT_PLAN") != null)
+                planOfCare = extras.getString("PATIENT_PLAN");
+            if (extras.getString("PATIENT_CONTINGENCY") != null)
+                contingency = extras.getString("PATIENT_CONTINGENCY");
+        }
+
+        EditText bedEdit = (EditText)findViewById(R.id.EditBedNumber2);
+        bedEdit.append(bed+"");
+
+        EditText ageEdit = (EditText)findViewById(R.id.EditAge2);
+        ageEdit.append(age+"");
+
+        if (sex == "M")
+            ((RadioButton) findViewById(R.id.male2)).setChecked(true);
+        else
+            ((RadioButton) findViewById(R.id.female2)).setChecked(true);
+
+        if (severity != 6){
+            if (severity == 1)
+                ((RadioButton) findViewById(R.id.radio12)).setChecked(true);
+            else if (severity == 1)
+                ((RadioButton) findViewById(R.id.radio22)).setChecked(true);
+            else if (severity == 1)
+                ((RadioButton) findViewById(R.id.radio32)).setChecked(true);
+            else if (severity == 1)
+                ((RadioButton) findViewById(R.id.radio42)).setChecked(true);
+            else if (severity == 1)
+                ((RadioButton) findViewById(R.id.radio52)).setChecked(true);
+        }
+
+        EditText chiefComplaintEdit = (EditText)findViewById(R.id.EditCondition2);
+        chiefComplaintEdit.append(chiefComplaint+"");
+
+        EditText diagnosisEdit = (EditText)findViewById(R.id.EditDiagnosis2);
+        diagnosisEdit.append(diagnosis+"");
+
+        EditText testsOrderedEdit = (EditText)findViewById(R.id.EditTestsOrdered2);
+        testsOrderedEdit.append(testsOrdered+"");
+
+        EditText planOfCareEdit = (EditText)findViewById(R.id.EditPlanOfCare2);
+        planOfCareEdit.append(planOfCare+"");
+
+        EditText contingencyEdit = (EditText)findViewById(R.id.EditContingency2);
+        contingencyEdit.append(contingency+"");
 
     }
 
@@ -46,15 +118,15 @@ public class EditPatient extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 switch(i){
                     case R.id.male:
-                        gender = "Male";
+                        sex = "M";
                         break;
                     case R.id.female:
-                        gender = "Female";
+                        sex = "F";
                         break;
                 }
             }
         });
-        return gender;
+        return sex;
     }
 
     public int addListenerOnButton(){
@@ -108,7 +180,7 @@ public class EditPatient extends AppCompatActivity {
 
 
 
-        if (bedNo.equals("") || gender.equals("") || age < 0) {
+        if (bedNo.equals("") || sex.equals("") || age < 0) {
             AlertDialog.Builder builder = new AlertDialog.Builder(EditPatient.this);
             builder.setMessage(R.string.dialog_message)
                     .setTitle(R.string.dialog_title);
@@ -126,7 +198,7 @@ public class EditPatient extends AppCompatActivity {
 
         } else {
 
-            Patient patient = new Patient(bedNo, gender, age);
+            Patient patient = new Patient(bedNo, sex, age);
 
             patient.setSeverity(severity);
 
